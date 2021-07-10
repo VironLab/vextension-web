@@ -94,6 +94,11 @@ var vextension, $
             return this
         }
 
+        each(callbackFunction) {
+            this.forEach(e => callbackFunction(e))
+            return this
+        }
+
         next() {
             return this.map(e => e.nextElementSibling).filter(e => e != null)
         }

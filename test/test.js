@@ -58,4 +58,5 @@ $(document).ready(async () => {
     await cookieTest()
     await cssTest()
     $.loadJS("./loadjs.js")
+    $('.text').each(element => console.log(element))
 })

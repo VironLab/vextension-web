@@ -65,6 +65,10 @@ $(document).ready(() => {
         $('.text').css("background", '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6))
     })
 
+    // loop through each element in element array with selector .text
+    $('.text').each(function (element) {
+        console.log(element)
+    })
 
     // adding and removing classes from an alement
     $('.text').addClass("testclass")
