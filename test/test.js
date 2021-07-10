@@ -15,9 +15,9 @@ function getJSONTest() {
     $('.text').css("background", "#222")
     $('.text').css("color", "silver")
     $('.text').css("padding", "20px")
-    $('.text').css("height", "200px")
-    $('.text').css("width", "400px")
-    $.getJSON("https://jsonplaceholder.typicode.com/todos/1")
+    $('.text').css("height", "600px")
+    $('.text').css("width", "600px")
+    $.getJSON("https://testapi.vironlab.eu/json")
         .done(json => {
             $('.text').html(`<code><pre>${JSON.stringify(json, null, 5).split("\n").join("<br>")}</pre></code>`)
             $('.text').show()
@@ -31,6 +31,26 @@ function getJSONTest() {
         $('#testmode').html("TestMode DONE")
         console.log($('.text').toJSON())
     }, 5000);
+}
+
+function postDataTest() {
+    $.postJSON('https://testapi.vironlab.eu/post', {
+            text: "TestPost"
+        })
+        .done(data => {
+            console.log(data)
+        })
+        .always(() => console.log("POST Complete"))
+        .fail(error => console.error)
+
+    $.postForm('https://testapi.vironlab.eu/post', {
+            text: "TestPost"
+        })
+        .done(data => {
+            console.log(data)
+        })
+        .always(() => console.log("POST Complete"))
+        .fail(error => console.error)
 }
 
 function cssTest() {
@@ -60,4 +80,5 @@ $(document).ready(async () => {
     await cssTest()
     $.loadJS("./loadjs.js")
     $('.text').each(element => console.log(element))
+    postDataTest()
 })

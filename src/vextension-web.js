@@ -357,6 +357,91 @@ var vextension, $
                 success(data)
                 return data
             })
+            .catch(error => {
+                throw new Error(error)
+            })
+        )
+    }
+
+    $.postJSON = $.postData = $.postJsonData = (url, data = {}, headers = {}, options = {}, success = () => {}, dataType = 'application/json; charset=UTF-8') => {
+        if (!headers["Content-Type"]) headers["Content-Type"] = dataType
+        return new VextensionAjaxPromise(
+            fetch(url, {
+                method: 'POST',
+                mode: options.mode || 'cors',
+                cache: options.cache || 'no-cache',
+                credentials: options.credentials || 'same-origin',
+                redirect: options.redirect || 'follow',
+                referrerPolicy: options.referrerPolicy || 'no-referrer',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                } else {
+                    throw new Error('Status Error: ' + res.status)
+                }
+            })
+            .then(jsonResp => {
+                success(jsonResp)
+                return jsonResp;
+            })
+            .catch(error => {
+                throw new Error(error)
+            })
+        )
+    }
+
+    $.get = (url, options = {}, success = () => {}) => {
+        options.method = 'GET'
+        return new VextensionAjaxPromise(
+            fetch(url, options)
+            .then(response => {
+                success(response)
+                return response;
+            })
+            .catch(error => {
+                throw new Error(error)
+            })
+        )
+    }
+
+    $.post = (url, options = {}, success = () => {}) => {
+        options.method = 'POST'
+        return new VextensionAjaxPromise(
+            fetch(url, options)
+            .then(response => {
+                success(response)
+                return response;
+            })
+            .catch(error => {
+                throw new Error(error)
+            })
+        )
+    }
+
+    $.postForm = $.postFormData = (url, formData = {}, options = {}, success = () => {}) => {
+        if ($.isPlainObject(formData)) {
+            function getFormData(object) {
+                const formData = new FormData();
+                Object.keys(object).forEach(key => formData.append(key, object[key]));
+                return formData;
+            }
+            formData = getFormData(formData)
+        }
+        options.method = 'POST'
+        options['Content-Type'] = "application/x-www-form-urlencoded"
+        options.body = formData
+        return new VextensionAjaxPromise(
+            fetch(url, options)
+            .then(response => {
+                success(response)
+                return response;
+            })
+            .catch(error => {
+                throw new Error(error)
+            })
         )
     }
     // =================================== requests =================================== //

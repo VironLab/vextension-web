@@ -50,6 +50,8 @@ $(document).ready(() => {
 
     cookieTest()
 
+ // ===============================================================================
+
     // hide and show elements
     $('.text').show('block') // sets css property display: block;
     $('.text').hide() // sets css property display: none;
@@ -69,6 +71,8 @@ $(document).ready(() => {
     $('.text').each(function (element) {
         console.log(element)
     })
+
+ // ===============================================================================
 
     // get 'index' element of element array
     $('.text').get(0)
@@ -90,18 +94,54 @@ $(document).ready(() => {
     // set a value of an element (maybe to copy text to clipboard)
     $('.text').value(`https://vironlab.eu/`)
 
+ // ===============================================================================
+
     // fetch and set JSON to an element
-    $.getJSON("https://jsonplaceholder.typicode.com/todos/1")
+    $.getJSON("https://testapi.vironlab.eu/json")
         .done(json => {
-            $('.text').html(`<code><pre>${JSON.stringify(json, null, 5).split("\n").join("<br>")}</pre></code>`)
+            $('.text').html(`<code><pre>${JSON.stringify(json, null, 2).split("\n").join("<br>")}</pre></code>`)
             $('.text').show()
         })
         .always(() => console.log("This runs always no matter if failed or done"))
         .fail(error => console.error)
 
+    // post json data and get response bach as JSON
+    $.postJSON('https://testapi.vironlab.eu/post', { // $.postData $.postJsonData
+            text: "TestPost"
+        })
+        .done(response => {
+            console.log(response)
+        })
+        .always(() => console.log("POST Complete"))
+        .fail(error => console.error)
+
+    // post FormData example
+    $.postForm('https://testapi.vironlab.eu/post', {
+            text: "TestPost"
+        })
+        .done(data => {
+            console.log(data)
+        })
+        .always(() => console.log("POST Complete"))
+        .fail(error => console.error)
+
+    // post FormData with FormData Object
+    const formData = new FormData();
+    formData.append("key", "value")
+    $.postForm('https://testapi.vironlab.eu/post', formData)
+        .done(data => {
+            console.log(data)
+        })
+        .always(() => console.log("POST Complete"))
+        .fail(error => console.error)
+
+ // ===============================================================================
+
     // dynamic load JS / CSS
     $.loadStyle("https://example.com/styles.css")
     $.loadJS("https://example.com/main.js")
+
+ // ===============================================================================
 
     // Clipboard util
     $.getSelection() // get selected text
@@ -120,6 +160,8 @@ $.locationName && $.pathName // returns current full windows locationName e.g /h
 $.hostname // returns current windows location hostame eg example.com
 $.url // returns current full window URL e.g https://example.com/home/index.html
 
+ // ===============================================================================
+
 $.isArray([1, 2, 3]); // returns true
 $.isEmptyObject({}); // returns true
 $.isPlainObject({data:["asdf"]}); // returns true
@@ -128,8 +170,12 @@ $.isFunction(function () { /****/ }); // returns true
 $.isNotNull("This is a nice string :)")  // returns true
 $.isNotNull(null)  // returns false
 
+ // ===============================================================================
+
 $.serializeElement(elemenr) // returns a JSON string with all elements attributes
 $.elementToJSON(elemenr) // returns an object with all elements attributes
+
+ // ===============================================================================
 
 $('.text').serialize() // .toString() // returns a JSON string with all elements inside the selector collection 
 $('.text').toJSON() // returns an object with all elements inside the selector collection 
@@ -137,10 +183,7 @@ $('.text').toJSON() // returns an object with all elements inside the selector c
 ```
 ______
 
-## TODO: 
-```markdown
-- Requests ( JSON / TXT ) // POST(form,json)
-...
+
 ```
 
 ### Discord
