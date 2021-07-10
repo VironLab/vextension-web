@@ -6,7 +6,7 @@
     "name": "VironLab",
     "url": "https://vironlab.eu/"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Vextension-Web is a fast javascript framework to manage browser actions",
   "main": "src/vextension-web.js",
   "scripts": {

@@ -47,6 +47,49 @@ var vextension, $
     }
 
     // =================================== DOM manipulation =================================== //
+    var serializeDom = (element, stringify = false) => {
+        var treeObject = {}
+        if (typeof element === "string") {
+            if (window.DOMParser) {
+                parser = new DOMParser()
+                docNode = parser.parseFromString(element, "text/xml");
+            } else {
+                docNode = new ActiveXObject("Microsoft.XMLDOM")
+                docNode.async = false
+                docNode.loadXML(element)
+            }
+            element = docNode.firstChild
+        }
+
+        function treeHTML(element, object) {
+            object["type"] = element.nodeName
+            var nodeList = element.childNodes
+            if (nodeList != null) {
+                if (nodeList.length) {
+                    object["content"] = [];
+                    for (var i = 0; i < nodeList.length; i++) {
+                        if (nodeList[i].nodeType == 3) {
+                            object["content"].push(nodeList[i].nodeValue)
+                        } else {
+                            object["content"].push({});
+                            treeHTML(nodeList[i], object["content"][object["content"].length - 1])
+                        }
+                    }
+                }
+            }
+            if (element.attributes != null) {
+                if (element.attributes.length) {
+                    object["attributes"] = {}
+                    for (var i = 0; i < element.attributes.length; i++) {
+                        object["attributes"][element.attributes[i].nodeName] = element.attributes[i].nodeValue
+                    }
+                }
+            }
+        }
+        treeHTML(element, treeObject)
+        return stringify ? JSON.stringify(treeObject, null, 2) : treeObject
+    }
+
     class VextensionElementCollection extends Array {
 
         ready(callbackFunction) {
@@ -107,6 +150,10 @@ var vextension, $
             return this.map(e => e.previousElementSibling).filter(e => e != null)
         }
 
+        get(index) {
+            return this[index]
+        }
+
         removeClass(className) {
             this.forEach(e => e.classList.remove(className))
             return this
@@ -157,6 +204,22 @@ var vextension, $
             this.css("display", display)
         }
 
+        serialize() {
+            return this.toString()
+        }
+
+        toJSON() {
+            let serializedArray = []
+            this.each(e => {
+                if (e) serializedArray.push(serializeDom(e, false))
+            })
+            return serializedArray
+        }
+
+        toString() {
+            return JSON.stringify(this.serialize())
+        }
+
     }
     // =================================== DOM manipulation =================================== //
 
@@ -171,10 +234,22 @@ var vextension, $
     // =================================== selector =================================== //
 
     // =================================== selector =================================== //
-    $.locationName = window.location.pathname
+    $.locationName = $.pathName = window.location.pathname
     $.hostname = window.location.hostname
     $.url = window.location.href
     // =================================== selector =================================== //
+
+    // =================================== utility =================================== //
+    $.isEmptyObject = toCheckVar => typeof toCheckVar === 'object' && toCheckVar !== null && Object.keys(toCkeckVar).length <= 0
+    $.isPlainObject = toCheckVar => typeof toCheckVar === 'object' && toCheckVar !== null
+    $.isArray = toCheckVar => Array.isArray(toCheckVar) && toCheckVar !== null
+    $.isFunction = toCheckVar => toCheckVar !== null && typeof toCheckVar === 'function'
+    $.isNotNull = toCheckVar => toCheckVar !== null && toCheckVar !== undefined
+
+    $.serializeElement = element => serializeDom(element, true)
+    $.elementToJSON = element => serializeDom(element)
+
+    // =================================== utility =================================== //
 
     // =================================== cookie manipulation =================================== //
     $.createCookie = $.setCookie = (name, value, days) => {

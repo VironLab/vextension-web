@@ -17,7 +17,7 @@ Vextension-Web is a fast javascript framework to manage browser actions
 ### Import via jsdelivr !!## Unpublished ATM ##!!
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.3/dist/vextension-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.4/dist/vextension-web.min.js"></script>
 
 ```
 
@@ -70,6 +70,9 @@ $(document).ready(() => {
         console.log(element)
     })
 
+    // get 'index' element of element array
+    $('.text').get(0)
+
     // adding and removing classes from an alement
     $('.text').addClass("testclass")
     $('.text').removeClass("testclass")
@@ -106,6 +109,30 @@ $(document).ready(() => {
     $.copySelectionToClipboard() // copy the selection to clipboard
 
 })
+
+```
+
+### Util
+
+```js
+
+$.locationName && $.pathName // returns current full windows locationName e.g /home/index.html
+$.hostname // returns current windows location hostame eg example.com
+$.url // returns current full window URL e.g https://example.com/home/index.html
+
+$.isArray([1, 2, 3]); // returns true
+$.isEmptyObject({}); // returns true
+$.isPlainObject({data:["asdf"]}); // returns true
+$.isFunction(function () { /****/ }); // returns true
+
+$.isNotNull("This is a nice string :)")  // returns true
+$.isNotNull(null)  // returns false
+
+$.serializeElement(elemenr) // returns a JSON string with all elements attributes
+$.elementToJSON(elemenr) // returns an object with all elements attributes
+
+$('.text').serialize() // .toString() // returns a JSON string with all elements inside the selector collection 
+$('.text').toJSON() // returns an object with all elements inside the selector collection 
 
 ```
 ______

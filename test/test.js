@@ -29,6 +29,7 @@ function getJSONTest() {
         $('#checker').prop("checked", true)
         $('#testmode').css("color", "green")
         $('#testmode').html("TestMode DONE")
+        console.log($('.text').toJSON())
     }, 5000);
 }
 
