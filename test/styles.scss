@@ -1,0 +1,24 @@
+html {
+    overflow: hidden
+}
+
+body {
+    background: #111;
+}
+
+body,
+.showcase {
+    width: 100vw;
+    height: 100vh
+}
+
+.showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+*::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
