@@ -70,6 +70,27 @@ $(document).ready(() => {
     $('.text').addClass("testclass")
     $('.text').removeClass("testclass")
 
+    // add or remove properties from an element
+    $('.checkbox').prop("checked", true)
+    $('.checkbox').prop("checked", false)
+
+    // set element attributes
+    $('.tooltipToggle-1').attr("data-tooltip", "This is a cool tooltiped element")
+
+    // change innetHTML of an element 
+    $('.text').html(`<code><pre>Usage example is shown at $.getJSON method</pre></code>`)
+
+    // set a value of an element (maybe to copy text to clipboard)
+    $('.text').value(`https://vironlab.eu/`)
+
+    // fetch and set JSON to an element
+    $.getJSON("https://jsonplaceholder.typicode.com/todos/1")
+    .done(json => {
+        $('.text').html(`<code><pre>${JSON.stringify(json, null, 5).split("\n").join("<br>")}</pre></code>`)
+    })
+    .always(() => console.log("This runs always no matter if failed or done"))
+    .fail(error => console.error)
+
 })
 
 ```
