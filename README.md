@@ -17,7 +17,7 @@ Vextension-Web is a fast javascript framework to manage browser actions
 ### Import via jsdelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.5/dist/vextension-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vextension-web@latest/dist/vextension-web.min.js"></script>
 
 ```
 
@@ -105,7 +105,7 @@ $(document).ready(() => {
         .always(() => console.log("This runs always no matter if failed or done"))
         .fail(error => console.error)
 
-    // post json data and get response bach as JSON
+    // post json data and get response back as JSON
     $.postJSON('https://testapi.vironlab.eu/post', { // $.postData $.postJsonData
             text: "TestPost"
         })
@@ -143,6 +143,11 @@ $(document).ready(() => {
 
  // ===============================================================================
 
+    // select and focus elements
+    $('.text').select()
+    $('.text').focus()
+    $('.text').selectAndFocus()
+
     // Clipboard util
     $.getSelection() // get selected text
     $.copyTextToClipboard(value) // copy a given string to clipboard
@@ -172,8 +177,8 @@ $.isNotNull(null)  // returns false
 
  // ===============================================================================
 
-$.serializeElement(elemenr) // returns a JSON string with all elements attributes
-$.elementToJSON(elemenr) // returns an object with all elements attributes
+$.serializeElement(element) // returns a JSON string with all elements attributes
+$.elementToJSON(element) // returns an object with all elements attributes
 
  // ===============================================================================
 
