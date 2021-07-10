@@ -34,12 +34,7 @@
 
 /* jshint -W097 */ //> ignore global used use strict warning
 
-"use strict"
-const {
-    registerMultiTask
-} = require("grunt");
-
-// https://www.w3schools.com/js/js_strict.asp 
+"use strict"// https://www.w3schools.com/js/js_strict.asp 
 
 var vextension, $
 
