@@ -195,8 +195,6 @@ $('.text').toJSON() // returns an object with all elements inside the selector c
 ______
 
 
-```
-
 ### Discord
 
 <div align="center">
