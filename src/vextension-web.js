@@ -46,6 +46,7 @@ var vextension, $
         return null;
     }
 
+    // =================================== DOM manipulation =================================== //
     class VextensionElementCollection extends Array {
 
         ready(callbackFunction) {
@@ -53,7 +54,7 @@ var vextension, $
                 return e.readyState != null && e.readyState != "loading"
             })
             if (isReady) {
-                callbackFunction()
+                this.forEach(e => callbackFunction)
             } else {
                 this.on("DOMContentLoaded", callbackFunction)
             }
@@ -62,6 +63,21 @@ var vextension, $
 
         load(callbackFunction) {
             this.on("load", callbackFunction)
+            return this
+        }
+
+        click(callbackFunction) {
+            this.on("click", callbackFunction)
+            return this
+        }
+
+        mouseover(callbackFunction) {
+            this.on("mouseover", callbackFunction)
+            return this
+        }
+
+        mouseout(callbackFunction) {
+            this.on("mouseout", callbackFunction)
             return this
         }
 
@@ -137,7 +153,9 @@ var vextension, $
         }
 
     }
+    // =================================== DOM manipulation =================================== //
 
+    // =================================== selector =================================== //
     $ = (param) => {
         if (typeof param === "string" || param instanceof String) {
             return new VextensionElementCollection(...document.querySelectorAll(param))
@@ -145,10 +163,15 @@ var vextension, $
             return new VextensionElementCollection(param)
         }
     }
+    // =================================== selector =================================== //
 
+    // =================================== selector =================================== //
     $.locationName = window.location.pathname
+    $.hostname = window.location.hostname
     $.url = window.location.href
+    // =================================== selector =================================== //
 
+    // =================================== cookie manipulation =================================== //
     $.createCookie = $.setCookie = (name, value, days) => {
         var expires;
         if (days) {
@@ -196,7 +219,9 @@ var vextension, $
             },
         }
     }
+    // =================================== cookie manipulation =================================== //
 
+    // =================================== requests =================================== //
     class VextensionAjaxPromise {
         constructor(promise) {
             this.promise = promise
@@ -254,6 +279,57 @@ var vextension, $
             })
         )
     }
+    // =================================== requests =================================== //
+
+
+    // =================================== JS / STYLE Loader =================================== //
+    $.loadJS = (url, location = document.head, implementationCode = () => {}) => {
+        var scriptTag = document.createElement('script');
+        scriptTag.src = url;
+        scriptTag.onload = implementationCode;
+        scriptTag.onreadystatechange = implementationCode;
+        location.appendChild(scriptTag);
+    };
+
+    $.loadStyle = (url, location = document.head) => {
+        var linkCssTag = document.createElement('link');
+        linkCssTag.href = url;
+        linkCssTag.rel = "stylesheet"
+        location.appendChild(linkCssTag);
+    };
+    // =================================== JS / STYLE Loader =================================== //
+
+    // =================================== clipboard functions =================================== //
+    function copyTextToClipboard(text) {
+        var successful = false
+        try {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            successful = document.execCommand('copy');
+            document.body.removeChild(textArea);
+        } catch (err) {}
+        return successful;
+    }
+
+    $.getSelection = () => {
+        if (document.getSelection) return document.getSelection();
+        return ""
+    }
+
+    $.copyTextToClipboard = (value) => {
+        return copyTextToClipboard(value)
+    }
+
+    $.copySelectionToClipboard = () => {
+        return copyTextToClipboard($.getSelection());
+    }
+    // =================================== clipboard functions =================================== //
 
     window['$'] = window['vextension'] = vextension = $
 

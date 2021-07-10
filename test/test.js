@@ -17,10 +17,13 @@ function getJSONTest() {
     $('.text').css("padding", "20px")
     $('.text').css("height", "200px")
     $('.text').css("width", "400px")
-    $.getJSON("https://jsonplaceholder.typicode.com/todos/1").done(json => {
-        $('.text').html(`<code><pre>${JSON.stringify(json, null, 5).split("\n").join("<br>")}</pre></code>`)
-        $('.text').show()
-    })
+    $.getJSON("https://jsonplaceholder.typicode.com/todos/1")
+        .done(json => {
+            $('.text').html(`<code><pre>${JSON.stringify(json, null, 5).split("\n").join("<br>")}</pre></code>`)
+            $('.text').show()
+        })
+        .always(() => console.log("This runs always no matter if failed or done"))
+        .fail(error => console.error)
     setTimeout(() => {
         $('.text').hide()
         $('#checker').prop("checked", true)
@@ -50,12 +53,9 @@ function cssTest() {
 }
 
 
-
-var testAll = async () => {
+$(document).ready(async () => {
+    $.loadStyle("./styles.css")
     await cookieTest()
-
-
-
     await cssTest()
-}
-$(document).ready(testAll)
+    $.loadJS("./loadjs.js")
+})

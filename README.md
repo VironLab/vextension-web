@@ -17,7 +17,7 @@ Vextension-Web is a fast javascript framework to manage browser actions
 ### Import via jsdelivr !!## Unpublished ATM ##!!
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.2/dist/vextension-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.3/dist/vextension-web.min.js"></script>
 
 ```
 
@@ -85,11 +85,21 @@ $(document).ready(() => {
 
     // fetch and set JSON to an element
     $.getJSON("https://jsonplaceholder.typicode.com/todos/1")
-    .done(json => {
-        $('.text').html(`<code><pre>${JSON.stringify(json, null, 5).split("\n").join("<br>")}</pre></code>`)
-    })
-    .always(() => console.log("This runs always no matter if failed or done"))
-    .fail(error => console.error)
+        .done(json => {
+            $('.text').html(`<code><pre>${JSON.stringify(json, null, 5).split("\n").join("<br>")}</pre></code>`)
+            $('.text').show()
+        })
+        .always(() => console.log("This runs always no matter if failed or done"))
+        .fail(error => console.error)
+
+    // dynamic load JS / CSS
+    $.loadStyle("https://example.com/styles.css")
+    $.loadJS("https://example.com/main.js")
+
+    // Clipboard util
+    $.getSelection() // get selected text
+    $.copyTextToClipboard(value) // copy a given string to clipboard
+    $.copySelectionToClipboard() // copy the selection to clipboard
 
 })
 

@@ -1,0 +1,1 @@
+console.log("LOAD JS SCRIPT ENABLED :)")
