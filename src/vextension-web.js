@@ -167,6 +167,11 @@ var vextension, $
             return this
         }
 
+        toggleClass(className) {
+            this.forEach(e => e.classList.includes(className) ? e.classList.remove(className) : e.classList.add(className))
+            return this
+        }
+
         css(property, value) {
             const camelProp = property.replace(/(-[a-z])/, g => {
                 return g.replace("-", "").toUpperCase()
@@ -189,6 +194,7 @@ var vextension, $
             this.value(value)
             return this
         }
+        
         value(value) {
             this.forEach(e => evalue = value)
             return this
@@ -200,11 +206,11 @@ var vextension, $
         }
 
         hide() {
-            this.show("none")
+            return this.show("none")
         }
 
         show(display = "block") {
-            this.css("display", display)
+            return this.css("display", display)
         }
 
         select() {

@@ -80,6 +80,8 @@ $(document).ready(() => {
     // adding and removing classes from an alement
     $('.text').addClass("testclass")
     $('.text').removeClass("testclass")
+    // add class when not existing and remove when existing
+    $('.text').toggleClass("testclass")
 
     // add or remove properties from an element
     $('.checkbox').prop("checked", true)
@@ -119,8 +121,8 @@ $(document).ready(() => {
     $.postForm('https://testapi.vironlab.eu/post', {
             text: "TestPost"
         })
-        .done(data => {
-            console.log(data)
+        .done(response => {
+            console.log(response)
         })
         .always(() => console.log("POST Complete"))
         .fail(error => console.error)
@@ -129,8 +131,8 @@ $(document).ready(() => {
     const formData = new FormData();
     formData.append("key", "value")
     $.postForm('https://testapi.vironlab.eu/post', formData)
-        .done(data => {
-            console.log(data)
+        .done(response => {
+            console.log(response)
         })
         .always(() => console.log("POST Complete"))
         .fail(error => console.error)
