@@ -46,7 +46,7 @@ var vextension, $
         return null;
     }
 
-    class ElementCollection extends Array {
+    class VextensionElementCollection extends Array {
 
         ready(callbackFunction) {
             const isReady = this.some(e => {
@@ -104,6 +104,30 @@ var vextension, $
             return this
         }
 
+        attr(attribute, value) {
+            this.forEach(e => e.setAttribute(attribute, value))
+            return this
+        }
+
+        prop(property, value) {
+            this.forEach(e => e[property] = value)
+            return this
+        }
+
+        val(value) {
+            this.value(value)
+            return this
+        }
+        value(value) {
+            this.forEach(e => evalue = value)
+            return this
+        }
+
+        html(html) {
+            this.forEach(e => e.innerHTML = html)
+            return this
+        }
+
         hide() {
             this.show("none")
         }
@@ -114,18 +138,18 @@ var vextension, $
 
     }
 
-    window['$'] = $ = window['vextension'] = vextension = (param) => {
+    $ = (param) => {
         if (typeof param === "string" || param instanceof String) {
-            return new ElementCollection(...document.querySelectorAll(param))
+            return new VextensionElementCollection(...document.querySelectorAll(param))
         } else {
-            return new ElementCollection(param)
+            return new VextensionElementCollection(param)
         }
     }
 
-    $.locationName = vextension.locationName = window.location.pathname
-    $.url = vextension.url = window.location.href
+    $.locationName = window.location.pathname
+    $.url = window.location.href
 
-    $.createCookie = vextension.createCookie = $.setCookie = vextension.setCookie = function (name, value, days) {
+    $.createCookie = $.setCookie = (name, value, days) => {
         var expires;
         if (days) {
             var date = new Date();
@@ -138,7 +162,7 @@ var vextension, $
         document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
     }
 
-    $.readCookie = vextension.readCookie = $.getCookie = vextension.getCookie = function (name) {
+    $.readCookie = $.getCookie = (name) => {
         var nameEQ = encodeURIComponent(name) + "=";
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
@@ -151,11 +175,11 @@ var vextension, $
         return null;
     }
 
-    $.deleteCookie = vextension.deleteCookie = $.removeCookie = vextension.removeCookie = function (name) {
+    $.deleteCookie = $.removeCookie = (name) => {
         if ($.readCookie(name) != null) $.createCookie(name, null, -1)
     }
 
-    $.setRandomInterval = vextension.setRandomInterval = (minDelay, maxDelay, intervalFunction) => {
+    $.setRandomInterval = (minDelay, maxDelay, intervalFunction) => {
         let timeout
         const runInterval = () => {
             const timeoutFunction = () => {
@@ -172,5 +196,66 @@ var vextension, $
             },
         }
     }
+
+    class VextensionAjaxPromise {
+        constructor(promise) {
+            this.promise = promise
+        }
+        done(cb) {
+            this.promise = this.promise.then(data => {
+                cb(data)
+                return data
+            })
+            return this
+        }
+        then(cb) {
+            this.promise = this.promise.then(data => {
+                cb(data)
+                return data
+            })
+            return this
+        }
+        fail(cb) {
+            this.promise = this.promise.catch(cb)
+            return this
+        }
+        catch (cb) {
+            this.promise = this.promise.catch(cb)
+            return this
+        }
+        always(cb) {
+            this.promise = this.promise.finally(cb)
+            return this
+        }
+        finally(cb) {
+            this.promise = this.promise.finally(cb)
+            return this
+        }
+    }
+
+    $.getJSON = (url, headers = {}, query = {}, success = () => {}, dataType = 'application/json; charset=UTF-8') => {
+        var queryString = Object.entries(query).map(([key, value]) => `${key}=${value}`).join("&")
+        if (!headers["Content-Type"]) headers["Content-Type"] = dataType
+        return new VextensionAjaxPromise(
+            fetch(`${url}?${queryString}`, {
+                method: "GET",
+                headers: headers,
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                } else {
+                    throw new Error('Status Error: ' + res.status)
+                }
+            })
+            .then(data => {
+                success(data)
+                return data
+            })
+        )
+    }
+
+    window['$'] = window['vextension'] = vextension = $
+
     return $;
 }));
