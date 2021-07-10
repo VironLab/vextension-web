@@ -96,6 +96,9 @@ $(document).ready(() => {
     // set a value of an element (maybe to copy text to clipboard)
     $('.text').value(`https://vironlab.eu/`)
 
+    // empty operation ( just returns selection )
+    $('.text').doNothing()
+
  // ===============================================================================
 
     // fetch and set JSON to an element

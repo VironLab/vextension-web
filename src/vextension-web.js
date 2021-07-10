@@ -35,9 +35,11 @@
 /* jshint -W097 */ //> ignore global used use strict warning
 
 "use strict"
-const { registerMultiTask } = require("grunt");
+const {
+    registerMultiTask
+} = require("grunt");
 
- // https://www.w3schools.com/js/js_strict.asp 
+// https://www.w3schools.com/js/js_strict.asp 
 
 var vextension, $
 
@@ -194,7 +196,7 @@ var vextension, $
             this.value(value)
             return this
         }
-        
+
         value(value) {
             this.forEach(e => evalue = value)
             return this
@@ -229,6 +231,16 @@ var vextension, $
             return this
         }
 
+        array() {
+            let arr = []
+            this.forEach(e => arr.push(e))
+            return arr;
+        }
+
+        toArray() {
+            return this.array();
+        }
+
         serialize() {
             return this.toString()
         }
@@ -245,6 +257,10 @@ var vextension, $
             return JSON.stringify(this.serialize())
         }
 
+        doNothing() {
+            return this
+        }
+
     }
     // =================================== DOM manipulation =================================== //
 
@@ -252,6 +268,8 @@ var vextension, $
     $ = (param) => {
         if (typeof param === "string" || param instanceof String) {
             return new VextensionElementCollection(...document.querySelectorAll(param))
+        } else if (param instanceof VextensionElementCollection) {
+            return new VextensionElementCollection(param.toArray())
         } else {
             return new VextensionElementCollection(param)
         }
