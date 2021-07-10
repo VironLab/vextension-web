@@ -76,6 +76,7 @@ $(document).ready(() => {
 
     // get 'index' element of element array
     $('.text').get(0)
+    $('.text').array() // returns an array with Elements [ekement, element]
 
     // adding and removing classes from an alement
     $('.text').addClass("testclass")
