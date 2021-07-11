@@ -74,6 +74,13 @@ module.exports = (grunt) => {
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
         dst: readOptionalJSON("dist/.destination.json"),
+        authors: {
+            prior: [
+                "depascaldc <depascaldc@gmail.com>"
+            ],
+            order: "count"
+
+        },
         watch: {
             files: ['src/**/*.js'],
             tasks: ['uglify', "compare_size"]
