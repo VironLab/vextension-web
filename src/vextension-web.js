@@ -34,7 +34,7 @@
 
 /* jshint -W097 */ //> ignore global used use strict warning
 
-"use strict"// https://www.w3schools.com/js/js_strict.asp 
+"use strict" // https://www.w3schools.com/js/js_strict.asp 
 
 var vextension, $
 
@@ -92,20 +92,38 @@ var vextension, $
 
     class VextensionElementCollection extends Array {
 
-        ready(callbackFunction) {
-            const isReady = this.some(e => {
-                return e.readyState != null && e.readyState != "loading"
-            })
-            if (isReady) {
-                this.forEach(e => callbackFunction)
-            } else {
-                this.on("DOMContentLoaded", callbackFunction)
+        interactive(callbackFunction) {
+            switch (document.readyState) {
+                case "interactive":
+                    this.forEach(e => callbackFunction(e))
+                    break;
+                case "complete":
+                    this.forEach(e => callbackFunction(e))
+                    break;
+                default:
+                    break;
             }
+            window.addEventListener('DOMContentLoaded', (event) => {
+                this.forEach(e => callbackFunction(e))
+            });
             return this
         }
 
+        ready(callbackFunction) {
+            return this.interactive(callbackFunction)
+        }
+
         load(callbackFunction) {
-            this.on("load", callbackFunction)
+            switch (document.readyState) {
+                case "complete":
+                    this.forEach(e => callbackFunction(e))
+                    break;
+                default:
+                    break;
+            }
+            window.addEventListener('load', (event) => {
+                this.forEach(e => callbackFunction(e))
+            });
             return this
         }
 
