@@ -91,4 +91,17 @@ $(document).load(() => {
     cssTest()
     postDataTest()
     setTimeout(loggerInfo, 10000);
+
+    $.storeLocal("tmp", {
+        test: "test-local"
+    })
+    console.log("Local Store: " + JSON.stringify($.getLocal('tmp')))
+    $.unStoreLocal('tmp')
+
+    $.storeSession("tmp", {
+        test: "test-session"
+    })
+    console.log("Session Store: " + JSON.stringify($.getSession('tmp')))
+    $.unStoreSession('tmp')
+    
 })

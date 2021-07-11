@@ -17,7 +17,7 @@ Vextension-Web is a fast javascript framework to manage browser actions
 ### Import via jsdelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.10/dist/vextension-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.11/dist/vextension-web.min.js"></script>
 
 ```
 
@@ -195,6 +195,21 @@ $.elementToJSON(element) // returns an object with all elements attributes
 
 $('.text').serialize() // .toString() // returns a JSON string with all elements inside the selector collection 
 $('.text').toJSON() // returns an object with all elements inside the selector collection 
+
+ // ===============================================================================
+
+// Session and Local store methods to store objects
+$.storeLocal("tmp", {
+    test: "test-local"
+}) // returns boolean success
+console.log("Local Store: " + JSON.stringify( $.getLocal('tmp')))
+$.unStoreLocal('tmp') // returns boolean success
+    
+$.storeSession("tmp", {
+    test: "test-session"
+}) // returns boolean success
+console.log("Session Store: " + JSON.stringify($.getSession('tmp')))
+$.unStoreSession('tmp') // returns boolean success
 
 ```
 ______

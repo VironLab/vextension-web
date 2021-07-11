@@ -255,7 +255,7 @@ var vextension, $
         }
 
         serialize() {
-            return this.toString()
+            return JSON.stringify(this.toJSON(), null, 2)
         }
 
         toJSON() {
@@ -267,7 +267,7 @@ var vextension, $
         }
 
         toString() {
-            return JSON.stringify(this.serialize())
+            return JSON.stringify(this.toJSON())
         }
 
         doNothing() {
@@ -551,6 +551,66 @@ var vextension, $
         return copyTextToClipboard($.getSelection());
     }
     // =================================== clipboard functions =================================== //
+
+    // =================================== storage functions =================================== //
+    $.storeLocal = (name = 'tmp', storeObject) => {
+        try {
+            if (localStorage != null && typeof localStorage.setItem === 'function') {
+                localStorage.setItem(name, JSON.stringify(storeObject));
+                return true
+            }
+        } catch (e) {}
+        return false
+    }
+
+    $.unStoreLocal = (name = 'tmp') => {
+        try {
+            if (localStorage != null && typeof localStorage.setItem === 'function') {
+                localStorage.removeItem(name);
+                return true
+            }
+        } catch (e) {}
+        return false
+    }
+
+    $.getLocal = (name = 'tmp') => {
+        try {
+            if (localStorage != null && typeof localStorage.setItem === 'function') {
+                return JSON.parse(localStorage.getItem(name))
+            }
+        } catch (e) {}
+        return null
+    }
+
+    $.storeSession = (name = 'tmp', storeObject) => {
+        try {
+            if (sessionStorage != null && typeof sessionStorage.setItem === 'function') {
+                sessionStorage.setItem(name, JSON.stringify(storeObject));
+                return true
+            }
+        } catch (e) {}
+        return false
+    }
+
+    $.unStoreSession = (name = 'tmp', storeObject) => {
+        try {
+            if (sessionStorage != null && typeof sessionStorage.setItem === 'function') {
+                sessionStorage.removeItem(name);
+                return true
+            }
+        } catch (e) {}
+        return false
+    }
+
+    $.getSession = (name = 'tmp') => {
+        try {
+            if (sessionStorage != null && typeof sessionStorage.setItem === 'function') {
+                return JSON.parse(sessionStorage.getItem(name))
+            }
+        } catch (e) {}
+        return null
+    }
+    // =================================== storage functions =================================== //
 
     window['$'] = window['vextension'] = vextension = $
 
