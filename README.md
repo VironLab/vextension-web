@@ -17,7 +17,7 @@ Vextension-Web is a fast javascript framework to manage browser actions
 ### Import via jsdelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.8/dist/vextension-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.9/dist/vextension-web.min.js"></script>
 
 ```
 

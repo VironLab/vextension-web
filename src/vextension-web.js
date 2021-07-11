@@ -95,16 +95,16 @@ var vextension, $
         interactive(callbackFunction) {
             switch (document.readyState) {
                 case "interactive":
-                    this.forEach(e => callbackFunction(e))
+                    callbackFunction()
                     break;
                 case "complete":
-                    this.forEach(e => callbackFunction(e))
+                    callbackFunction()
                     break;
                 default:
                     break;
             }
             window.addEventListener('DOMContentLoaded', (event) => {
-                this.forEach(e => callbackFunction(e))
+                callbackFunction()
             });
             return this
         }
@@ -116,13 +116,13 @@ var vextension, $
         load(callbackFunction) {
             switch (document.readyState) {
                 case "complete":
-                    this.forEach(e => callbackFunction(e))
+                    callbackFunction()
                     break;
                 default:
                     break;
             }
             window.addEventListener('load', (event) => {
-                this.forEach(e => callbackFunction(e))
+                callbackFunction()
             });
             return this
         }
