@@ -115,6 +115,6 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify-es');
 
-    grunt.registerTask('default', ['uglify', "compare_size"]);
+    grunt.registerTask('default', ['uglify', "compare_size", "update-authors"]);
 
 }
