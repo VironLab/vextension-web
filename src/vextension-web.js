@@ -101,11 +101,11 @@ var vextension, $
                     callbackFunction()
                     break;
                 default:
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        callbackFunction()
+                    });
                     break;
             }
-            window.addEventListener('DOMContentLoaded', (event) => {
-                callbackFunction()
-            });
             return this
         }
 
@@ -119,11 +119,11 @@ var vextension, $
                     callbackFunction()
                     break;
                 default:
+                    window.addEventListener('load', (event) => {
+                        callbackFunction()
+                    });
                     break;
             }
-            window.addEventListener('load', (event) => {
-                callbackFunction()
-            });
             return this
         }
 
