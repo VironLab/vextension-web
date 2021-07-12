@@ -61,7 +61,8 @@ module.exports = (grunt) => {
 
     var banner = `
 /**
- *   Vextension-Web v<%= pkg.version %> | Copyright © 2021 | vironlab.eu | All Rights Reserved.
+ * Vextension-Web v<%= pkg.version %> | Copyright (C) 2021 | vironlab.eu 
+ * Licensed under the GNU Lesser General Public license Version 3
  *   Repository: 
  *     Github:          https://github.com/VironLab/vextension-web
  *     NPM:             https://www.npmjs.com/package/vextension-web
@@ -85,13 +86,33 @@ module.exports = (grunt) => {
             files: ['src/**/*.js'],
             tasks: ['uglify', "compare_size"]
         },
+        build: {
+            all: {
+                dest: "dist/vextension-web.js",
+                included: [
+                    "vextension"
+                ],
+            }
+        },
         uglify: {
-            options: {
-                banner: banner
-            },
-            build: {
-                src: 'src/<%= pkg.name %>.js',
-                dest: 'dist/<%= pkg.name %>.min.js'
+            all: {
+                files: {
+                    "dist/<%= grunt.option('filename').replace('.js', '.min.js') %>": "dist/<%= grunt.option('filename') %>"
+                },
+                options: {
+                    preserveComments: false,
+                    sourceMap: true,
+                    sourceMapName: "dist/<%= grunt.option('filename').replace('.js', '.min.map') %>",
+                    report: "min",
+                    output: {
+                        "ascii_only": true
+                    },
+                    banner: banner,
+                    compress: {
+                        "hoist_funs": false,
+                        loops: false
+                    }
+                }
             }
         },
         compare_size: {
@@ -109,12 +130,10 @@ module.exports = (grunt) => {
 
     // Load grunt tasks from NPM packages
     require("load-grunt-tasks")(grunt);
-    // Integrate Vextension-Web specific tasks
-    grunt.loadTasks("build/tasks");
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-uglify-es');
 
-    grunt.registerTask('default', ['uglify', "compare_size", "update-authors"]);
+    // Integrate Vextension-Web special tasks
+    grunt.loadTasks("build/tasks");
+
+    grunt.registerTask('default', ['build:*:*', 'uglify', "compare_size", "update-authors"]);
 
 }
