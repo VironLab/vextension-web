@@ -188,19 +188,19 @@ var vextension, $
         }
 
         css(property, value) {
-            function addProperty(prop, val) {
+            function addProperty(elements, prop, val) {
                 const camelProp = prop.replace(/(-[a-z])/, g => {
                     return g.replace("-", "").toUpperCase()
                 })
-                this.forEach(e => (e.style[camelProp] = val))
+                elements.forEach(e => (e.style[camelProp] = val))
             }
             if (typeof property === 'object' && property !== null) {
                 Object.keys(property).forEach(cssProperty => {
-                    addProperty(cssProperty, property[cssProperty])
+                    addProperty(this, cssProperty, property[cssProperty])
                 })
                 return this
             }
-            addProperty(property, value)
+            addProperty(this, property, value)
             return this
         }
 
