@@ -188,10 +188,19 @@ var vextension, $
         }
 
         css(property, value) {
-            const camelProp = property.replace(/(-[a-z])/, g => {
-                return g.replace("-", "").toUpperCase()
-            })
-            this.forEach(e => (e.style[camelProp] = value))
+            function addProperty(prop, val) {
+                const camelProp = prop.replace(/(-[a-z])/, g => {
+                    return g.replace("-", "").toUpperCase()
+                })
+                this.forEach(e => (e.style[camelProp] = val))
+            }
+            if (typeof property === 'object' && property !== null) {
+                Object.keys(property).forEach(cssProperty => {
+                    addProperty(cssProperty, property[cssProperty])
+                })
+                return this
+            }
+            addProperty(property, value)
             return this
         }
 
@@ -282,7 +291,7 @@ var vextension, $
         if (typeof param === "string" || param instanceof String) {
             return new VextensionElementCollection(...document.querySelectorAll(param))
         } else if (param instanceof VextensionElementCollection) {
-            return new VextensionElementCollection(param.toArray())
+            return new VextensionElementCollection(...param)
         } else {
             return new VextensionElementCollection(param)
         }

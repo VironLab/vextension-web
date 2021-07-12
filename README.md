@@ -17,7 +17,7 @@ Vextension-Web is a fast javascript framework to manage browser actions
 ### Import via jsdelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.11/dist/vextension-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.12/dist/vextension-web.min.js"></script>
 
 ```
 
@@ -65,6 +65,11 @@ $(document).ready(() => {
     $('.text').css("background", "#222")
     $('.text').css("height", "20px")
     $('.text').css("width", "60px")
+    // or
+    $('.text').css({
+        width: "60px",
+        heigght: "60px"
+    })
 
     // bind functions to events
     $('.text').on('click', () => {
