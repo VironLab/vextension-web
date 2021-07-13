@@ -1,5 +1,5 @@
 /**
- * Vextension-Web v0.0.13 | Copyright (C) 2021 | vironlab.eu 
+ * Vextension-Web v0.0.14 | Copyright (C) 2021 | vironlab.eu 
  * Licensed under the GNU Lesser General Public license Version 3
  * 
  * ___    _______                        ______         ______  
@@ -330,7 +330,7 @@ class VextensionAjaxPromise {
     }
 }
 
-var vextension, version = "0.0.13";
+var vextension, version = "0.0.14";
 
 // =================================== selector =================================== //
 vextension = (...params) => {
