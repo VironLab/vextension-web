@@ -1,46 +1,51 @@
 {
-  "name": "vextension-web",
-  "title": "vextension-web",
-  "homepage": "https://vironlab.eu/projects/vextension-web",
-  "author": {
-    "name": "VironLab",
-    "url": "https://vironlab.eu/"
-  },
-  "version": "0.0.14",
-  "description": "Vextension-Web is a fast javascript framework to manage browser actions",
-  "main": "src/vextension-web.js",
-  "scripts": {
-    "build-install": "npm install && grunt",
-    "build": "grunt",
-    "dev": "grunt watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/VironLab/vextension-web.git"
-  },
-  "keywords": [
-    "webjs-framework",
-    "webextension",
-    "vextension",
-    "extension",
-    "js-framework"
-  ],
-  "license": "LGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/VironLab/vextension-web/issues"
-  },
-  "devDependencies": {
-    "grunt": "^1.4.1",
-    "grunt-compare-size": "^0.4.2",
-    "grunt-complexity": "^1.1.0",
-    "grunt-contrib-uglify-es": "^3.3.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-eslint": "^23.0.0",
-    "grunt-git-authors": "^3.2.0",
-    "grunt-jsonlint": "^2.1.3",
-    "grunt-npmcopy": "^0.2.0",
-    "gzip-js": "^0.3.2",
-    "load-grunt-tasks": "^5.1.0",
-    "rollup": "^2.53.1"
-  }
+    "name": "vextension-web",
+    "title": "vextension-web",
+    "homepage": "https://vironlab.eu/projects/vextension-web",
+    "author": {
+        "name": "VironLab",
+        "url": "https://vironlab.eu/"
+    },
+    "version": "0.0.15",
+    "description": "Vextension-Web is a fast javascript framework to manage browser actions",
+    "main": "src/vextension-web.js",
+    "scripts": {
+        "build-install": "npm install && grunt",
+        "build": "grunt",
+        "dev": "grunt watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/VironLab/vextension-web.git"
+    },
+    "keywords": [
+        "web-vextension",
+        "vextension-web",
+        "vextension",
+        "webextension",
+        "js-framework",
+        "framework",
+        "webjs-framework",
+        "web-framework",
+        "jQuery",
+        "front-end"
+    ],
+    "license": "LGPL-3.0",
+    "bugs": {
+        "url": "https://github.com/VironLab/vextension-web/issues"
+    },
+    "devDependencies": {
+        "grunt": "^1.4.1",
+        "grunt-compare-size": "^0.4.2",
+        "grunt-complexity": "^1.1.0",
+        "grunt-contrib-uglify-es": "^3.3.0",
+        "grunt-contrib-watch": "^1.1.0",
+        "grunt-eslint": "^23.0.0",
+        "grunt-git-authors": "^3.2.0",
+        "grunt-jsonlint": "^2.1.3",
+        "grunt-npmcopy": "^0.2.0",
+        "gzip-js": "^0.3.2",
+        "load-grunt-tasks": "^5.1.0",
+        "rollup": "^2.53.1"
+    }
 }

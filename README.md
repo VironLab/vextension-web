@@ -2,27 +2,38 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](LICENSE)
 [![Discord](https://img.shields.io/discord/785956343407181824.svg)](https://discord.gg/wvcX92VyEH)
-_________
+
+---
+
+`npm install vextension-web`
 
 Vextension-Web is a fast javascript framework to manage browser actions
 
-----------
+---
 
 #### Would you like some features such as the jQuery selector? But don't you want to import such a large library?
 
 ### Vextension-Web enables you to do this.
 
-----------
+---
 
-### Import via jsdelivr
+## Including Vextension-Web
+
+### Browser
+
+#### Import via jsdelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.13/dist/vextension-web.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.15/dist/vextension-web.min.js"></script>
 ```
 
-----------
+### Import as Module
 
+```js
+import { vextension as $ } from 'vextension-web';
+```
+
+---
 
 ## Functionality
 
@@ -33,192 +44,199 @@ Vextension-Web is a fast javascript framework to manage browser actions
 ```
 
 ```js
- // wait until everything is loaded and launch function
+// wait until everything is loaded and launch function
 $(document).load(() => {
     // DO Somethinf
-})
+});
 
 // launch function when document is loaded
 $(document).ready(() => {
-
     // Set / Remove / Delete Cookies ( TODO: Custom Path )
     function cookieTest() {
-        let actualCookie = $.readCookie("TestCookie")
-        
-        if (!actualCookie)
-            $.setCookie("TestCookie", 0, 0)
-        else
-            $.setCookie("TestCookie", parseInt(actualCookie) || 0 + 1, 1)
+        let actualCookie = $.readCookie('TestCookie');
 
-        $.deleteCookie("TestCookie")
+        if (!actualCookie) $.setCookie('TestCookie', 0, 0);
+        else $.setCookie('TestCookie', parseInt(actualCookie) || 0 + 1, 1);
+
+        $.deleteCookie('TestCookie');
     }
 
-    cookieTest()
+    cookieTest();
 
- // ===============================================================================
+    // ===============================================================================
 
     // hide and show elements
-    $('.text').show('block') // sets css property display: block;
-    $('.text').hide() // sets css property display: none;
+    $('.text').show('block'); // sets css property display: block;
+    $('.text').hide(); // sets css property display: none;
 
     // manage styling
-    $('.text').css("background", "#222")
-    $('.text').css("height", "20px")
-    $('.text').css("width", "60px")
+    $('.text').css('background', '#222');
+    $('.text').css('height', '20px');
+    $('.text').css('width', '60px');
     // or
     $('.text').css({
-        width: "60px",
-        heigght: "60px"
-    })
+        width: '60px',
+        heigght: '60px',
+    });
 
     // bind functions to events
     $('.text').on('click', () => {
         // set random background color on click
-        $('.text').css("background", '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6))
-    })
+        $('.text').css('background', '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6));
+    });
 
     // loop through each element in element array with selector .text
     $('.text').each(function (element) {
-        console.log(element)
-    })
+        console.log(element);
+    });
 
- // ===============================================================================
+    // ===============================================================================
 
     // get 'index' element of element array
-    $('.text').get(0)
-    $('.text').array() // returns an array with Elements [ekement, element]
+    $('.text').get(0);
+    $('.text').array(); // returns an array with Elements [ekement, element]
 
     // adding and removing classes from an alement
-    $('.text').addClass("testclass")
-    $('.text').removeClass("testclass")
+    $('.text').addClass('testclass');
+    $('.text').removeClass('testclass');
     // add class when not existing and remove when existing
-    $('.text').toggleClass("testclass")
+    $('.text').toggleClass('testclass');
 
     // add or remove properties from an element
-    $('.checkbox').prop("checked", true)
-    $('.checkbox').prop("checked", false)
+    $('.checkbox').prop('checked', true);
+    $('.checkbox').prop('checked', false);
 
     // set element attributes
-    $('.tooltipToggle-1').attr("data-tooltip", "This is a cool tooltiped element")
+    $('.tooltipToggle-1').attr('data-tooltip', 'This is a cool tooltiped element');
 
-    // change innetHTML of an element 
-    $('.text').html(`<code><pre>Usage example is shown at $.getJSON method</pre></code>`)
+    // change innetHTML of an element
+    $('.text').html(`<code><pre>Usage example is shown at $.getJSON method</pre></code>`);
 
     // set a value of an element (maybe to copy text to clipboard)
-    $('.text').value(`https://vironlab.eu/`)
+    $('.text').value(`https://vironlab.eu/`);
 
     // empty operation ( just returns selection )
-    $('.text').doNothing()
+    $('.text').doNothing();
 
- // ===============================================================================
+    // ===============================================================================
 
     // fetch and set JSON to an element
-    $.getJSON("https://testapi.vironlab.eu/json")
-        .done(json => {
-            $('.text').html(`<code><pre>${JSON.stringify(json, null, 2).split("\n").join("<br>")}</pre></code>`)
-            $('.text').show()
+    $.getJSON('https://testapi.vironlab.eu/json')
+        .done((json) => {
+            $('.text').html(`<code><pre>${JSON.stringify(json, null, 2).split('\n').join('<br>')}</pre></code>`);
+            $('.text').show();
         })
-        .always(() => console.log("This runs always no matter if failed or done"))
-        .fail(error => console.error)
+        .always(() => console.log('This runs always no matter if failed or done'))
+        .fail((error) => console.error);
 
     // post json data and get response back as JSON
-    $.postJSON('https://testapi.vironlab.eu/post', { // $.postData $.postJsonData
-            text: "TestPost"
+    $.postJSON('https://testapi.vironlab.eu/post', {
+        // $.postData $.postJsonData
+        text: 'TestPost',
+    })
+        .done((response) => {
+            console.log(response);
         })
-        .done(response => {
-            console.log(response)
-        })
-        .always(() => console.log("POST Complete"))
-        .fail(error => console.error)
+        .always(() => console.log('POST Complete'))
+        .fail((error) => console.error);
 
     // post FormData example
     $.postForm('https://testapi.vironlab.eu/post', {
-            text: "TestPost"
+        text: 'TestPost',
+    })
+        .done((response) => {
+            console.log(response);
         })
-        .done(response => {
-            console.log(response)
-        })
-        .always(() => console.log("POST Complete"))
-        .fail(error => console.error)
+        .always(() => console.log('POST Complete'))
+        .fail((error) => console.error);
 
     // post FormData with FormData Object
     const formData = new FormData();
-    formData.append("key", "value")
+    formData.append('key', 'value');
     $.postForm('https://testapi.vironlab.eu/post', formData)
-        .done(response => {
-            console.log(response)
+        .done((response) => {
+            console.log(response);
         })
-        .always(() => console.log("POST Complete"))
-        .fail(error => console.error)
+        .always(() => console.log('POST Complete'))
+        .fail((error) => console.error);
 
- // ===============================================================================
+    // ===============================================================================
 
     // dynamic load JS / CSS
-    $.loadStyle("https://example.com/styles.css")
-    $.loadJS("https://example.com/main.js")
+    $.loadScript('https://example.com/main.js', document.head /*default location*/, () => {
+        // callback whendone
+    });
 
- // ===============================================================================
+    $.loadJS('https://example.com/main.js', document.head).then(() => {
+        // todo
+    });
+
+    $.loadCSS('https://example.com/styles.css');
+    // or async
+    $.loadStyle('https://example.com/styles.css').then(() => {
+        // todo
+    });
+
+    // ===============================================================================
 
     // select and focus elements
-    $('.text').select()
-    $('.text').focus()
-    $('.text').selectAndFocus()
+    $('.text').select();
+    $('.text').focus();
+    $('.text').selectAndFocus();
 
     // Clipboard util
-    $.getSelection() // get selected text
-    $.copyTextToClipboard(value) // copy a given string to clipboard
-    $.copySelectionToClipboard() // copy the selection to clipboard
-
-})
-
+    $.getSelection(); // get selected text
+    $.copyTextToClipboard(value); // copy a given string to clipboard
+    $.copySelectionToClipboard(); // copy the selection to clipboard
+});
 ```
 
 ### Util
 
 ```js
+$.locationName && $.pathName; // returns current full windows locationName e.g /home/index.html
+$.hostname; // returns current windows location hostame eg example.com
+$.url; // returns current full window URL e.g https://example.com/home/index.html
 
-$.locationName && $.pathName // returns current full windows locationName e.g /home/index.html
-$.hostname // returns current windows location hostame eg example.com
-$.url // returns current full window URL e.g https://example.com/home/index.html
-
- // ===============================================================================
+// ===============================================================================
 
 $.isArray([1, 2, 3]); // returns true
 $.isEmptyObject({}); // returns true
-$.isPlainObject({data:["asdf"]}); // returns true
-$.isFunction(function () { /****/ }); // returns true
+$.isPlainObject({ data: ['asdf'] }); // returns true
+$.isFunction(function () {
+    /****/
+}); // returns true
 
-$.isNotNull("This is a nice string :)")  // returns true
-$.isNotNull(null)  // returns false
+$.isNotNull('This is a nice string :)'); // returns true
+$.isNotNull(null); // returns false
 
- // ===============================================================================
+// ===============================================================================
 
-$.serializeElement(element) // returns a JSON string with all elements attributes
-$.elementToJSON(element) // returns an object with all elements attributes
+$.serializeElement(element); // returns a JSON string with all elements attributes
+$.elementToJSON(element); // returns an object with all elements attributes
 
- // ===============================================================================
+// ===============================================================================
 
-$('.text').serialize() // .toString() // returns a JSON string with all elements inside the selector collection 
-$('.text').toJSON() // returns an object with all elements inside the selector collection 
+$('.text').serialize(); // .toString() // returns a JSON string with all elements inside the selector collection
+$('.text').toJSON(); // returns an object with all elements inside the selector collection
 
- // ===============================================================================
+// ===============================================================================
 
 // Session and Local store methods to store objects
-$.storeLocal("tmp", {
-    test: "test-local"
-}) // returns boolean success
-console.log("Local Store: " + JSON.stringify( $.getLocal('tmp')))
-$.unStoreLocal('tmp') // returns boolean success
-    
-$.storeSession("tmp", {
-    test: "test-session"
-}) // returns boolean success
-console.log("Session Store: " + JSON.stringify($.getSession('tmp')))
-$.unStoreSession('tmp') // returns boolean success
+$.storeLocal('tmp', {
+    test: 'test-local',
+}); // returns boolean success
+console.log('Local Store: ' + JSON.stringify($.getLocal('tmp')));
+$.unStoreLocal('tmp'); // returns boolean success
 
+$.storeSession('tmp', {
+    test: 'test-session',
+}); // returns boolean success
+console.log('Session Store: ' + JSON.stringify($.getSession('tmp')));
+$.unStoreSession('tmp'); // returns boolean success
 ```
-______
 
+---
 
 ### Discord
 
