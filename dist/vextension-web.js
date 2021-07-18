@@ -1,5 +1,5 @@
 /**
- * Vextension-Web v0.0.16 | Copyright (C) 2021 | vironlab.eu
+ * Vextension-Web v0.0.17 | Copyright (C) 2021 | vironlab.eu
  * Licensed under the MIT License
  *
  * ___    _______                        ______         ______
@@ -266,12 +266,18 @@ class VextensionElementCollection extends Array {
         return this;
     }
 
-    hide() {
-        return this.show('none');
+    hide(timeout = 0) {
+        setTimeout(() => {
+            this.show(timeout, 'none');
+        }, timeout);
+        return this;
     }
 
-    show(display = 'block') {
-        return this.css('display', display);
+    show(timeout = 0, display = 'block') {
+        setTimeout(() => {
+            this.css('display', display);
+        }, timeout);
+        return this;
     }
 
     select() {
@@ -388,7 +394,7 @@ vextension = (...params) => {
 vextension.locationName = vextension.pathName = window.location.pathname;
 vextension.hostname = window.location.hostname;
 vextension.url = window.location.href;
-vextension.version = '0.0.16';
+vextension.version = '0.0.17';
 // =================================== variables =================================== //
 
 // =================================== utility =================================== //

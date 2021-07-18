@@ -210,12 +210,18 @@ class VextensionElementCollection extends Array {
         return this;
     }
 
-    hide() {
-        return this.show('none');
+    hide(timeout = 0) {
+        setTimeout(() => {
+            this.show(timeout, 'none');
+        }, timeout);
+        return this;
     }
 
-    show(display = 'block') {
-        return this.css('display', display);
+    show(timeout = 0, display = 'block') {
+        setTimeout(() => {
+            this.css('display', display);
+        }, timeout);
+        return this;
     }
 
     select() {

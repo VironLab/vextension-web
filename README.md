@@ -24,7 +24,7 @@ Vextension-Web is a fast javascript framework to manage browser actions
 #### Import via jsdelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.16/dist/vextension-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.17/dist/vextension-web.min.js"></script>
 ```
 
 ### Import as Module
@@ -66,8 +66,8 @@ $(document).ready(() => {
     // ===============================================================================
 
     // hide and show elements
-    $('.text').show('block'); // sets css property display: block;
-    $('.text').hide(); // sets css property display: none;
+    $('.text').show(/*optional*/ timeout, /*optional*/ 'block'); // sets css property display: block;
+    $('.text').hide(/*optional*/ timeout); // sets css property display: none;
 
     // manage styling
     $('.text').css('background', '#222');
@@ -95,6 +95,16 @@ $(document).ready(() => {
     // get 'index' element of element array
     $('.text').get(0);
     $('.text').array(); // returns an array with Elements [ekement, element]
+
+    // wait function
+    $('.text')
+        .wait(2000)
+        .then((textElementCollection) => {
+            console.log('Waited for 2000ms');
+        });
+
+    $('.text').find('a'); // returns an ElementCollection with all a elemts inside of all .text classified elements
+    $('.text').find('div'); // returns all divs ElementCollection insite .text
 
     // adding and removing classes from an alement
     $('.text').addClass('testclass');
