@@ -34,6 +34,7 @@
  *
  */
 
+var $;
 (function (global, factory) {
     'use strict';
     if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -137,13 +138,23 @@ class VextensionElementCollection extends Array {
         return this;
     }
 
+    dblclick(callbackFunction) {
+        this.on('dblclick', callbackFunction);
+        return this;
+    }
+
     mouseover(callbackFunction) {
         this.on('mouseover', callbackFunction);
         return this;
     }
 
-    mouseout(callbackFunction) {
-        this.on('mouseout', callbackFunction);
+    mouseover(callbackFunction) {
+        this.on('mouseover', callbackFunction);
+        return this;
+    }
+
+    mouseleave(callbackFunction) {
+        this.on('mouseleave', callbackFunction);
         return this;
     }
 
@@ -161,7 +172,11 @@ class VextensionElementCollection extends Array {
     }
 
     each(callbackFunction) {
-        this.forEach((e) => callbackFunction(e));
+        var index = 0;
+        this.forEach((e) => {
+            callbackFunction(e, index);
+            index++;
+        });
         return this;
     }
 
@@ -175,6 +190,18 @@ class VextensionElementCollection extends Array {
 
     get(index) {
         return this[index];
+    }
+
+    find(param) {
+        if (!param) throw new Error('Cannot run on empty parameter.');
+        let tmpArray = [];
+        if (typeof param !== 'string' || !(param instanceof String)) throw new Error('Given parameter must be a String');
+        this.forEach((e) => {
+            try {
+                e.querySelectorAll(param).forEach((element) => tmpArray.push(element));
+            } catch (err) {}
+        });
+        return tmpArray.length > 0 ? new VextensionElementCollection(...tmpArray) : null;
     }
 
     removeClass(className) {
@@ -292,6 +319,15 @@ class VextensionElementCollection extends Array {
     doNothing() {
         return this;
     }
+
+    async wait(millis) {
+        var elementCollection = this;
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(elementCollection);
+            }, millis);
+        });
+    }
 }
 
 class VextensionAjaxPromise {
@@ -330,10 +366,9 @@ class VextensionAjaxPromise {
     }
 }
 
-var vextension,
-    version = '0.0.16';
-
 // =================================== selector =================================== //
+var vextension;
+
 vextension = (...params) => {
     if (params.length <= 0) throw new Error('Cannot run on empty parameters.');
     if (params[0] !== null && typeof params[0] === 'function') {
@@ -353,8 +388,7 @@ vextension = (...params) => {
 vextension.locationName = vextension.pathName = window.location.pathname;
 vextension.hostname = window.location.hostname;
 vextension.url = window.location.href;
-
-vextension.version = version;
+vextension.version = '0.0.16';
 // =================================== variables =================================== //
 
 // =================================== utility =================================== //
