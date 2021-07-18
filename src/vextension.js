@@ -179,6 +179,11 @@ class VextensionElementCollection extends Array {
         return this;
     }
 
+    append(html) {
+        this.forEach((e) => (e.innerHTML += html));
+        return this;
+    }
+
     hide() {
         return this.show('none');
     }

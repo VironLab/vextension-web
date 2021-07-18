@@ -6,9 +6,10 @@
         "name": "VironLab",
         "url": "https://vironlab.eu/"
     },
-    "version": "0.0.15",
+    "version": "0.0.16",
     "description": "Vextension-Web is a fast javascript framework to manage browser actions",
     "main": "src/vextension-web.js",
+    "types": "src/vextension-web.d.ts",
     "scripts": {
         "build-install": "npm install && grunt",
         "build": "grunt",
@@ -30,7 +31,7 @@
         "jQuery",
         "front-end"
     ],
-    "license": "LGPL-3.0",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/VironLab/vextension-web/issues"
     },

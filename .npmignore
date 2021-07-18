@@ -1,0 +1,6 @@
+/.editorconfig
+/.gitattributes
+/build
+/test
+/modified-jquery-plugins
+/Gruntfile.js

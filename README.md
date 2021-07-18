@@ -1,6 +1,6 @@
 # vextension-web
 
-[![License: GPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](LICENSE)
+[![License](https://img.shields.io/github/license/VironLab/vextension-web)](LICENSE.txt)
 [![Discord](https://img.shields.io/discord/785956343407181824.svg)](https://discord.gg/wvcX92VyEH)
 
 ---
@@ -24,13 +24,13 @@ Vextension-Web is a fast javascript framework to manage browser actions
 #### Import via jsdelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.15/dist/vextension-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vextension-web@0.0.16/dist/vextension-web.min.js"></script>
 ```
 
 ### Import as Module
 
 ```js
-import { vextension as $ } from 'vextension-web';
+import $ from 'vextension-web';
 ```
 
 ---
@@ -111,6 +111,8 @@ $(document).ready(() => {
 
     // change innetHTML of an element
     $('.text').html(`<code><pre>Usage example is shown at $.getJSON method</pre></code>`);
+    // append current innerHTML with new HTML
+    $('.text').append(`<code><pre>Usage example is shown at $.getJSON method</pre></code>`);
 
     // set a value of an element (maybe to copy text to clipboard)
     $('.text').value(`https://vironlab.eu/`);
