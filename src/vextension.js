@@ -159,7 +159,7 @@ class VextensionElementCollection extends Array {
     }
 
     toggleClass(className) {
-        this.forEach((e) => (e.classList.includes(className) ? e.classList.remove(className) : e.classList.add(className)));
+        this.forEach((e) => e.classList.toggle(className));
         return this;
     }
 
@@ -314,7 +314,7 @@ class VextensionAjaxPromise {
 var vextension;
 
 vextension = (...params) => {
-    if (params.length <= 0) throw new Error('Cannot run on empty parameters.');
+    if (params.length <= 0) return new VextensionElementCollection(document); // return document in collection when nothing queried
     if (params[0] !== null && typeof params[0] === 'function') {
         return new VextensionElementCollection(document).ready(params[0]);
     }
